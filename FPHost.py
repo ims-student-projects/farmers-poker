@@ -13,7 +13,7 @@ class FPHost():
         self.start_game()
 
 
-    def start_game():
+    def start_game(self):
         ## Round 1 of the game
 
         # This should return: the hands of each player, the trump
@@ -44,4 +44,17 @@ class FPHost():
             self.server.confirm_player(p) # tell player it was accepted
             # inform the other players
             self.server.inform_players(p, prediction)
-    
+
+        # In the first round there is only one trick
+        # Ask each player what card they want to play in the trick
+        for p in self.players:
+            card = None
+            accepted = False
+            while not accepted:
+                card = self.server.ask_for_play(p)
+                accepted = self.game.set_play(p, card)
+            self.server.inform_players(p, card)
+        
+        game_state = self.game.get_state()
+        print('Round 1 is over: Results:')
+        print(game_state)
