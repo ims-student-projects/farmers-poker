@@ -9,9 +9,8 @@ class Game:
 			self.players.append(Player(p))
 		shuffle(self.players)
 		self.suits = ["hearts", "diamonds", "spades", "clubs"]
-		self.d = {"Jack":11, "Queen":12, "King":13, "Ace":14, "7":7, "8":8, "9":9, "10":10}
-		self.rev_d = {11:"Jack", 12:"Queen", 13:"King", 14:"Ace", 7:"7", 8:"8", 9:"9", 10:"10"}
 		self.mkDeck()
+		self.state = GameState(self)
 		if len(self.players) == 3:
 			self.countRounds = 9
 		else:
@@ -35,6 +34,7 @@ class Game:
 	def startRound(self):
 		assert self.round_num < self.maxRounds
 		self.round_num += 1
+		self.table = []
 		shuffle(self.deck)
 		if self.round_num != self.countRounds + 3:
 			self.dealCards()
@@ -48,7 +48,6 @@ class Game:
 			self.trump = "clubs"
 		else:
 			self.pickTrump()
-		print(self.players[0].name + ", please make a prediction")
 			
 	def dealCards(self):
 		if self.round_num <= self.countRounds:
@@ -61,27 +60,49 @@ class Game:
 			for p in self.players:
 				p.hand.append(self.deck[0])
 				self.deck.remove(self.deck[0])
-		for p in self.players:
-			for card in p.hand:
-				p.hand_Verbose.append((self.rev_d[card.value],card.suit))
-		for p in self.players:
-			print(p.name + "'s hand:")
-			print(p.hand_Verbose)
-			print("\n")
 			
 	def pickTrump(self):
 		shuffle(self.suits)
 		self.trump = self.suits[0]
-		print(self.trump + " is the trump")
-		print("\n")
+		
+	def get_state:
+		return self.state
 			
 class Player:
 	def __init__(self, p):
 		self.name = p
 		self.hand = []
-		self.hand_Verbose = []
+		self.tricks = []
+		self.score = 0
 
 class Card:
 	def __init__(self, value, suit):
 		self.value = value
 		self.suit = suit
+
+class GameState:
+	def __init__(self, game):
+		self.players = game.players
+		self.trump = None
+		self.table = []
+	
+	def get_hand(player):
+		for i in range(len(self.players)):
+			if player == self.players[i]:
+				return self.players[i].hand
+				
+	def get_tricks(player):
+		for i in range(len(self.players)):
+			if player == self.players[i]:
+				return self.players[i].tricks
+				
+	def get_score(player):
+		for i in range(len(self.players)):
+			if player == self.players[i]:
+				return self.players[i].score
+				
+	def get_trump:
+		return self.trump
+		
+	def get_table:
+		return self.table
