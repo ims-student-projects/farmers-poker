@@ -28,12 +28,20 @@ class FPHost():
                     game_state.get_trump,
                     game_state_get_table)
 
-
         # Ask each player to make a prediction
         predictions = {}
         for p in self.players:
-            predictions[p] = self.server.ask_for_prediction(p)
-            # Inform other players
-            self.server.inform_players(p, predictions[p])
-        # Inform Game
-        self.game.set_predictions(predictions)
+            accepted = False
+            prediction = None
+            while not accepted:
+                prediction = self.server.ask_for_prediction(p)
+                accepted = self.game.set_prediction(p, prediction)
+                # TODO some procedure is needed in case player is not able 
+                # to make acceptable predictions, otherwise the game with 
+                # stop in an infinite loop (maybe: penalize invalid choice by
+                # a random choice by the host?)
+            # assuming prediction was accepted
+            self.server.confirm_player(p) # tell player it was accepted
+            # inform the other players
+            self.server.inform_players(p, prediction)
+    
