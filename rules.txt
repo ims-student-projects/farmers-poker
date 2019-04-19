@@ -7,6 +7,7 @@ Each round one of the suits (hearts, diamonds, clubs or spades) is selected as t
 Cards without the trump suit and without the suit of the first card played in the trick do not have value (i.e. you cannot take a trick with them).
 If there are multiple card with the same suit in one trick, then which one has the higher value depends on the value on the card, i.e. ace>king>queen>jack>10>9>8>7.
 Cards with a value less than 7 are not used in this game.
+Players must "follow suit". That means that if a player has one or more cards of the same suit as the suit of the first card played in the trick, they must play one of those cards.
 
 At the start of the game a turn order is created. 
 At the start of each round, each player is dealt a number of cards to their hand equal to the number of tricks in the game.
