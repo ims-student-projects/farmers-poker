@@ -2,10 +2,27 @@ Farmer's Poker Rules
 
 Farmer's Poker, also known as Farmer's Bridge is a trick-taking card game.
 The goal of the game is to collect as many points as possible over multiple rounds by correctly guessing the amount of tricks you will obtain in one round.
-A trick is created by players playing a card on the table in turn order. Once every player has played one card, the player who played the card with the highest value obtains the trick.
+A trick is created by players playing a card from their hand on the table in turn order. Once every player has played one card, the player who played the card with the highest value obtains the trick.
 Each round one of the suits (hearts, diamonds, clubs or spades) is selected as the trump. Cards with the trump suit always have a higher value than cards without the trump suit.
 Cards without the trump suit and without the suit of the first card played in the trick do not have value (i.e. you cannot take a trick with them).
 If there are multiple card with the same suit in one trick, then which one has the higher value depends on the value on the card, i.e. ace>king>queen>jack>10>9>8>7.
 Cards with a value less than 7 are not used in this game.
 
-At the start of the game a turn order is created. At the start of the first round, the first player in turn order makes a prediction first. In every subsequent round the player next in turn order to the one that made the first prediction in the previous round makes the first prediction in that round.
+At the start of the game a turn order is created. 
+At the start of each round, each player is dealt a number of cards to their hand equal to the number of tricks in the game.
+Once cards are dealt, a trump is selected. Next the first player in turn order makes a prediction first. In every subsequent round the player next in turn order to the one that made the first prediction in the previous round makes the first prediction in that round.
+The player who makes the first prediction also plays the first card in the first trick of the round.
+Afterwards, whenever a player takes a trick, that player plays the first card in the next trick of the round.
+A prediction is a number from 0 up to the number of tricks in the round and corresponds to the number of tricks the player predicts to obtain in that round.
+The last player to make a prediction is not allowed to make a prediction which would make the sum of all predictions equal to the number of tricks in that round.
+Example: there are 9 tricks in the round. Player 1 predicts 4 tricks. Player 2 predicts 2 tricks. Player 3, the last player in turn order, is not allowed to predict 3 tricks because that would make the sum of all predictions equal to 9.
+
+If a player correctly predicted how many tricks he would obtain, that player recieves 10 points plus 3 points for each trick.
+If a player did not correctly predict how many tricks he would obtain, that player loses points equal to 3 times the difference between his prediction and the number of tricks that player obtained.
+
+There are 23 rounds (19 with four players) in a game. The first 9 (7 with four players) each have one more trick than the previous, starting with 1. In these rounds the trump is selected randomly.
+The last 9 rounds (7 with four players) each have one less trick than the previous, starting with 9 (7 with four players). In these rounds the trump is selected randomly.
+The five middle rounds have 10 tricks (8 with four players). In four of these rounds the trump is predetermined: hearts in the first, spades in the second, diamonds in the fourth and clubs in the last.
+The third of five middle rounds has a random trump. However in this round players must make predictions before they are dealt cards (blind predictions).
+
+The player with the most points at the end of the last round wins the game.
