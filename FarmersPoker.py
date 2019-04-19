@@ -64,9 +64,16 @@ class Game:
 	def pickTrump(self):
 		shuffle(self.suits)
 		self.trump = self.suits[0]
+		self.state.trump = self.trump
 		
-	def get_state:
+	def get_state(self):
 		return self.state
+		
+	def set_prediction(self, p, prediction):
+		return True
+		
+	def set_play(self, p, card):
+		return True
 			
 class Player:
 	def __init__(self, p):
@@ -86,23 +93,23 @@ class GameState:
 		self.trump = None
 		self.table = []
 	
-	def get_hand(player):
+	def get_hand(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].hand
 				
-	def get_tricks(player):
+	def get_tricks(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].tricks
 				
-	def get_score(player):
+	def get_score(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].score
 				
-	def get_trump:
+	def get_trump(self):
 		return self.trump
 		
-	def get_table:
+	def get_table(self):
 		return self.table
