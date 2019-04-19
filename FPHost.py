@@ -25,8 +25,8 @@ class FPHost():
             self.server.inform_player(p, 
                     game_state.get_hand(p),
                     game_state.get_score(p),
-                    game_state.get_trump,
-                    game_state_get_table)
+                    game_state.get_trump(),
+                    game_state.get_table() )
 
         # Ask each player to make a prediction
         predictions = {}
@@ -57,4 +57,4 @@ class FPHost():
         
         game_state = self.game.get_state()
         print('Round 1 is over: Results:')
-        print(game_state)
+        game_state.print_results()

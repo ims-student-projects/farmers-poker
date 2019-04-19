@@ -18,7 +18,7 @@ class Game:
 		self.maxRounds = self.countRounds + 5 + self.countRounds
 		self.round_num = 0
 		self.startRound()
-		
+
 	def mkDeck(self):
 		self.deck=[]
 		for suit in self.suits:
@@ -30,7 +30,7 @@ class Game:
 					self.deck.append(Card(value, suit))
 				self.deck.append(Card(7, "hearts"))
 				self.deck.append(Card(7, "spades"))
-				
+
 	def startRound(self):
 		assert self.round_num < self.maxRounds
 		self.round_num += 1
@@ -48,7 +48,7 @@ class Game:
 			self.trump = "clubs"
 		else:
 			self.pickTrump()
-			
+
 	def dealCards(self):
 		if self.round_num <= self.countRounds:
 			cardsDealt_num = self.round_num
@@ -60,21 +60,21 @@ class Game:
 			for p in self.players:
 				p.hand.append(self.deck[0])
 				self.deck.remove(self.deck[0])
-			
+
 	def pickTrump(self):
 		shuffle(self.suits)
 		self.trump = self.suits[0]
 		self.state.trump = self.trump
-		
+
 	def get_state(self):
 		return self.state
-		
+
 	def set_prediction(self, p, prediction):
 		return True
-		
+
 	def set_play(self, p, card):
 		return True
-			
+
 class Player:
 	def __init__(self, p):
 		self.name = p
@@ -87,29 +87,42 @@ class Card:
 		self.value = value
 		self.suit = suit
 
+	def __str__(self):
+		return self.suit + str(self.value)
+
 class GameState:
 	def __init__(self, game):
 		self.players = game.players
 		self.trump = None
 		self.table = []
-	
+
 	def get_hand(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].hand
-				
+
 	def get_tricks(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].tricks
-				
+
 	def get_score(self, player):
 		for i in range(len(self.players)):
 			if player == self.players[i]:
 				return self.players[i].score
-				
+
 	def get_trump(self):
 		return self.trump
-		
+
 	def get_table(self):
 		return self.table
+
+	def print_results(self):
+		print('PLAYER:\tHAND\tTRICKS\tSCORE')
+		for p in self.players:
+			print('{name}\t{hand}\t{tricks}\t{score}'.format(name = p.name, \
+                hand = [c.__str__() for c in p.hand],
+                tricks = p.tricks,
+                score = p.score ))
+			print('TABLE: {}'.format(self.table))
+			print('TRUMP: {}'.format(self.trump))
