@@ -37,7 +37,7 @@ class FPHost():
                 prediction = self.server.ask_for_prediction(p)
                 accepted = self.game.set_prediction(p, prediction)
                 # TODO some procedure is needed in case player is not able 
-                # to make acceptable predictions, otherwise the game with 
+                # to make acceptable predictions, otherwise the game will 
                 # stop in an infinite loop (maybe: penalize invalid choice by
                 # a random choice by the host?)
             # assuming prediction was accepted
