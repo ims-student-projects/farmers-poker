@@ -13,7 +13,7 @@ class FPHost():
         self.start_game()
 
 
-    def start_game():
+    def start_game(self):
         ## Round 1 of the game
 
         # This should return: the hands of each player, the trump
@@ -28,12 +28,33 @@ class FPHost():
                     game_state.get_trump,
                     game_state_get_table)
 
-
         # Ask each player to make a prediction
         predictions = {}
         for p in self.players:
-            predictions[p] = self.server.ask_for_prediction(p)
-            # Inform other players
-            self.server.inform_players(p, predictions[p])
-        # Inform Game
-        self.game.set_predictions(predictions)
+            accepted = False
+            prediction = None
+            while not accepted:
+                prediction = self.server.ask_for_prediction(p)
+                accepted = self.game.set_prediction(p, prediction)
+                # TODO some procedure is needed in case player is not able 
+                # to make acceptable predictions, otherwise the game with 
+                # stop in an infinite loop (maybe: penalize invalid choice by
+                # a random choice by the host?)
+            # assuming prediction was accepted
+            self.server.confirm_player(p) # tell player it was accepted
+            # inform the other players
+            self.server.inform_players(p, prediction)
+
+        # In the first round there is only one trick
+        # Ask each player what card they want to play in the trick
+        for p in self.players:
+            card = None
+            accepted = False
+            while not accepted:
+                card = self.server.ask_for_play(p)
+                accepted = self.game.set_play(p, card)
+            self.server.inform_players(p, card)
+        
+        game_state = self.game.get_state()
+        print('Round 1 is over: Results:')
+        print(game_state)
