@@ -2,6 +2,19 @@ from random import shuffle
 
 class Game:
 	def __init__(self, players):
+		assert len(players) == 3
+		self.players = []
+		for p in players:
+			self.players.append(Player(p))
+		shuffle(self.players)
+		self.suits = ["hearts", "diamonds", "spades", "clubs"]
+		self.mkDeck()
+		self.state = GameState(self)
+		self.maxRounds = 10
+		self.round_num = 0
+		self.startBasicRound
+		
+	def startRealGame(self, players):
 		#players: a list of playernames (strings)
 		assert len(players) == 3 or len(players) == 4
 		self.players = []
@@ -21,15 +34,16 @@ class Game:
 
 	def mkDeck(self):
 		self.deck=[]
-		for suit in self.suits:
-			if len(self.players) == 4:
+		if len(self.players) == 4:
+			for suit in self.suits:
 				for value in range(7,15):
 					self.deck.append(Card(value, suit))
-			else:
+		else:
+			for suit in self.suits:
 				for value in range(8,15):
 					self.deck.append(Card(value, suit))
-				self.deck.append(Card(7, "hearts"))
-				self.deck.append(Card(7, "spades"))
+			self.deck.append(Card(7, "hearts"))
+			self.deck.append(Card(7, "spades"))
 
 	def startRound(self):
 		assert self.round_num < self.maxRounds
@@ -48,6 +62,14 @@ class Game:
 			self.trump = "clubs"
 		else:
 			self.pickTrump()
+			
+	def startBasicRound(self):
+		assert self.round_num < self.maxRounds
+		self.round_num += 1
+		self.table = []
+		shuffle(self.deck)
+		self.dealCards()
+		self.pickTrump()
 
 	def dealCards(self):
 		if self.round_num <= self.countRounds:
