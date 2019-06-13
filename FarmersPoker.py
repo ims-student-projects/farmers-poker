@@ -68,7 +68,7 @@ class Game:
 		self.round_num += 1
 		self.table = []
 		shuffle(self.deck)
-		self.dealCards()
+		self.dealBasicCards()
 		self.pickTrump()
 
 	def dealCards(self):
@@ -82,6 +82,13 @@ class Game:
 			for p in self.players:
 				p.hand.append(self.deck[0])
 				self.deck.remove(self.deck[0])
+				
+	def dealBasicCards(self):
+		for i in range(10):
+			for p in self.players:
+				p.hand.append(self.deck[0])
+				self.deck.remove(self.deck[0])
+		assert self.deck == []
 
 	def pickTrump(self):
 		shuffle(self.suits)
