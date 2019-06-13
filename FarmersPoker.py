@@ -168,6 +168,8 @@ class Player:
 			self.score += self.prediction*3+10
 		else:
 			self.score -= 3*(abs(self.prediction-len(self.tricks)))
+		self.tricks = []
+		self.prediction = None
 
 class Card:
 	def __init__(self, value, suit):
